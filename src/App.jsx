@@ -5,58 +5,52 @@ import Aboutus from "./components/Aboutus";
 import Contact from "./components/Contact";
 import Dashboard from "./components/Dashboard";
 import Login from "./components/login";
+import AuthHandler from "./components/AuthHandler"; // import your AuthHandler
 
 function App() {
   const router = createBrowserRouter([
     {
-      path: "/",
+      path: "/home",
       element: (
-        
         <>
           <Navbar />
+          <AuthHandler /> {/* Redirect after login */}
           <Home />
         </>
-       
       ),
     },
     {
       path: "/contact",
       element: (
-      
         <>
           <Navbar />
           <Contact />
         </>
-        
       ),
     },
     {
       path: "/aboutus",
       element: (
-      
         <>
           <Navbar />
           <Aboutus />
         </>
- 
       ),
     },
     {
       path: "/dashboard",
       element: (
-  
         <>
           <Navbar />
           <Dashboard />
         </>
-     
       ),
     },
     {
-      path: "/login",
+      path: "/",
       element: (
         <>
-          <Navbar />
+          <AuthHandler /> {/* Check login at root as well */}
           <Login />
         </>
       ),
@@ -64,7 +58,6 @@ function App() {
   ]);
 
   return <RouterProvider router={router} />;
-
 }
 
 export default App;
