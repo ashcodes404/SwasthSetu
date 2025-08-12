@@ -6,11 +6,11 @@ const Navbar = () => {
   const { logout, isAuthenticated } = useAuth0();
 
   return (
-    <div className="w-[80%] mx-auto">
+    <div className="w-[95%] mx-auto">
       <nav className="flex items-center justify-between">
-        <img className="w-24 m-2" src="/SS_logo-removebg-preview.png" alt="Logo" />
+        <img className="w-20 " src="/SS_logo-removebg-preview.png" alt="Logo" />
         
-        <ul className="flex gap-20 mr-7 font-bold items-center">
+        <ul className="flex gap-7 mr-7 font-bold items-center">
           <li className="text-[#1D104E]">
             <NavLink
               to="/home"

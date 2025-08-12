@@ -4,7 +4,9 @@ import { useAuth0 } from '@auth0/auth0-react'
 const login = () => {
     const {loginWithRedirect , isAuthenticated} = useAuth0()
   return (
-    <div>
+
+ <div className="min-h-screen bg-landing-bg bg-cover bg-no-repeat">
+ <div>
        { !isAuthenticated && (
             <button onClick={()=> loginWithRedirect()}>
              sign in 
@@ -12,6 +14,11 @@ const login = () => {
         )}
 
     </div>
+</div>
+
+
+
+   
   )
 }
 

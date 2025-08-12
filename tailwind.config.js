@@ -5,7 +5,14 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+  extend: {
+  backgroundImage: {
+    'landing-bg': "url('Bg _image_landing_page.webp')",
+  },
+     fontFamily: {
+        arimo: ['Arimo', 'sans-serif'],
+      }
+}
   },
   plugins: [],
 }
