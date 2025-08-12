@@ -7,7 +7,7 @@ export default {
   theme: {
   extend: {
   backgroundImage: {
-    'landing-bg': "url('landing bg.png')",
+    'landing-bg': "url('bgff.png')",
   },
      fontFamily: {
         arimo: ['Arimo', 'sans-serif'],

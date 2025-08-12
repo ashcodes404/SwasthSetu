@@ -1,0 +1,105 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+.Introduction{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    font-size: xx-large;
+    padding-top: 170px;
+    padding-left: 180px;
+    font-weight: bold;
+    font-style: italic;
+    font-family: 'Poppins', sans-serif;
+}
+
+.purple-text {
+  color: rgb(115, 37, 115); /* or your hex code like #800080 */
+}
+
+.logo {
+    width: 50px;
+    height: 50px;
+    margin: 10px;
+    cursor: pointer;
+    border-radius: 0.5rem;
+}
+
+.Sign_In_Button {
+    position: fixed;       /* keeps it stuck at bottom */
+    bottom: 20px;          /* distance from bottom of screen */
+    left: 50%;             /* center horizontally */
+    transform: translateX(-50%);
+    
+    background-color: white; /* white background */
+    padding: 10px 20px;
+    border-radius: 12px; /* slightly more rounded for modern look */
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    width: 200px;
+    height: 50px;
+    color: black;
+    border: 2px solid #333333; /* greyish-black border */
+    cursor: pointer;
+    font-size: xx-large;
+    z-index: 100; /* ensures it’s above other content */
+
+    /* Floating shadow */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Hover effect for "lift" */
+.Sign_In_Button:hover {
+    transform: translateX(-50%) translateY(-3px);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.25);
+}
+
+
+
+.Sites_Logo{
+    display: flex;
+    flex-direction: row;
+    align-items: left;
+    padding-left:600px;
+    padding-top: 43px;
+    opacity: 0.3;
+    border-radius: 0.5rem;
+}
+
+.Logos{
+    display: flex;
+    flex-direction: row;
+}
+
+.Swasth_Setu_Logo{
+    border-radius: 0.5rem;
+    padding-top: 38px;
+    padding-left: 180px;
+    height: 50px;
+}
+
+.Swasth_Setu_Logo .logo {
+    width: 150px;  /* adjust size as needed */
+    height: auto;  /* keeps aspect ratio */
+}
+
+.Header{
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    padding-top: 10px;
+    font-weight: bold;
+    font-style: italic;
+    font-family: 'Poppins', sans-serif;
+    font-size: 80px;
+    color: rgb(51, 26, 91);
+}
+
