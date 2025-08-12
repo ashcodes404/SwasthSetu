@@ -6,6 +6,7 @@ import Contact from "./components/Contact";
 import Dashboard from "./components/Dashboard";
 import Login from "./components/login";
 import AuthHandler from "./components/AuthHandler"; // import your AuthHandler
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   const router = createBrowserRouter([
@@ -13,9 +14,11 @@ function App() {
       path: "/home",
       element: (
         <>
+        <ProtectedRoute>
           <Navbar />
           <AuthHandler /> {/* Redirect after login */}
           <Home />
+          </ProtectedRoute>
         </>
       ),
     },
@@ -23,8 +26,10 @@ function App() {
       path: "/contact",
       element: (
         <>
+        <ProtectedRoute>
           <Navbar />
           <Contact />
+          </ProtectedRoute>
         </>
       ),
     },
@@ -32,8 +37,10 @@ function App() {
       path: "/aboutus",
       element: (
         <>
+        <ProtectedRoute>
           <Navbar />
           <Aboutus />
+          </ProtectedRoute>
         </>
       ),
     },
@@ -41,8 +48,10 @@ function App() {
       path: "/dashboard",
       element: (
         <>
+        <ProtectedRoute>
           <Navbar />
           <Dashboard />
+          </ProtectedRoute>
         </>
       ),
     },
