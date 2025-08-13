@@ -14,7 +14,7 @@ const Home = () => {
   const [selectedCity, setSelectedCity] = useState("");
   const [selectedHospital, setSelectedHospital] = useState(null);
 
-  // ✅ Fixed: Destructure errors from formState
+  //  Fixed: Destructure errors from formState
   const {
     register,
     handleSubmit,
@@ -101,7 +101,24 @@ const Home = () => {
       </div>
 
       {/* Loading / Error */}
-      {loading && <p className="text-center">Loading hospitals...</p>}
+      {/* Loading / Error */}
+{loading && (
+  <ul className="max-w-5xl mx-auto grid grid-cols-2 gap-4">
+    {[...Array(4)].map((_, index) => (
+      <li
+        key={index}
+        className="border rounded p-4 pl-14 shadow bg-[#DEEEFF] animate-pulse"
+      >
+        <div className="h-5 w-2/3 bg-gray-300 rounded mb-3"></div>
+        <div className="h-4 w-1/2 bg-gray-300 rounded mb-2"></div>
+        <div className="h-4 w-3/4 bg-gray-300 rounded mb-2"></div>
+        <div className="h-4 w-2/4 bg-gray-300 rounded mb-2"></div>
+        <div className="h-12 w-32 bg-gray-400 rounded mt-4"></div>
+      </li>
+    ))}
+  </ul>
+)}
+
       {error && <p className="text-center text-red-500">Error: {error}</p>}
 
       {/* Hospital List */}
