@@ -31,7 +31,7 @@ const AboutUs = () => {
       {/* Values Section */}
       <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
         <div className="p-6 bg-white rounded-xl shadow hover:shadow-lg transition">
-          <img src="icons8-mission.svg" alt="Mission" className="w-12 mx-auto mb-3" />
+          <img src="icons8-facebook.svg" alt="Mission" className="w-12 mx-auto mb-3" />
           <h3 className="font-bold text-lg text-[#0097b2]">Our Mission</h3>
           <p className="text-sm text-[#737373]">
             To revolutionize healthcare with AI-driven solutions that are accessible to all.
@@ -39,7 +39,7 @@ const AboutUs = () => {
         </div>
 
         <div className="p-6 bg-white rounded-xl shadow hover:shadow-lg transition">
-          <img src="icons8-vision.svg" alt="Vision" className="w-12 mx-auto mb-3" />
+          <img src="icons8-youtube.svg" alt="Vision" className="w-12 mx-auto mb-3" />
           <h3 className="font-bold text-lg text-[#0097b2]">Our Vision</h3>
           <p className="text-sm text-[#737373]">
             To create a healthier world by connecting people with the right care at the right time.
@@ -47,7 +47,7 @@ const AboutUs = () => {
         </div>
 
         <div className="p-6 bg-white rounded-xl shadow hover:shadow-lg transition">
-          <img src="icons8-values.svg" alt="Values" className="w-12 mx-auto mb-3" />
+          <img src="icons8-instagram.svg" alt="Values" className="w-12 mx-auto mb-3" />
           <h3 className="font-bold text-lg text-[#0097b2]">Our Values</h3>
           <p className="text-sm text-[#737373]">
             Compassion, innovation, and integrity guide everything we do.

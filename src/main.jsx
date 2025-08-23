@@ -18,7 +18,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         redirect_uri: `${window.location.origin}/home`,
       }}
     >
+      <div className="bg-main-bg">
       <App />
+      </div>
     </Auth0Provider>
   </StrictMode>
 );

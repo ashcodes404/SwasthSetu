@@ -3,6 +3,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { motion, AnimatePresence } from "framer-motion";
+import BookAppointmentForm from "./BookAppointmentForm";
 
 const Home = () => {
   const { user, isAuthenticated } = useAuth0();
@@ -14,13 +15,7 @@ const Home = () => {
   const [selectedCity, setSelectedCity] = useState("");
   const [selectedHospital, setSelectedHospital] = useState(null);
 
-  //  Fixed: Destructure errors from formState
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm();
+  const { reset } = useForm();
 
   useEffect(() => {
     axios
@@ -35,33 +30,29 @@ const Home = () => {
       });
   }, []);
 
+  // Removed department fetching useEffect entirely since you don't want to fetch departments 
+
   const cities = [...new Set(hospitals.map((h) => h.location).filter(Boolean))];
 
   const filteredHospitals = hospitals.filter((hospital) => {
-    const matchesName = hospital.name
-      ?.toLowerCase()
-      .includes(searchTerm.toLowerCase());
-    const matchesCity = selectedCity
-      ? hospital.location === selectedCity
-      : true;
+    const matchesName = hospital.name?.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCity = selectedCity ? hospital.location === selectedCity : true;
     return matchesName && matchesCity;
   });
 
   const openModal = (hospital) => {
-    setSelectedHospital(hospital);
-    reset({
-      hospitalName: hospital.name,
-      hospitalLocation: hospital.location,
-    });
-  };
+  console.log("Opening modal for hospital:", hospital._id);
+  reset({
+    hospitalName: hospital.name,
+    hospitalLocation: hospital.location,
+  });
+  setSelectedHospital(hospital);
+};
 
-  const closeModal = () => {
-    setSelectedHospital(null);
-  };
 
-  const onSubmit = (data) => {
-    console.log("Form submitted:", data);
-    alert("Appointment booked!");
+  const closeModal = () => setSelectedHospital(null);
+
+  const onSuccess = () => {
     closeModal();
   };
 
@@ -74,50 +65,73 @@ const Home = () => {
       )}
 
       {/* Search + Filter */}
-      <div className="flex flex-col sm:flex-row gap-3 justify-between my-5 w-[60%] ml-[20%]">
-        <div className="flex border rounded-full px-4 py-2 items-center w-full sm:w-[400px]">
-          <img className="w-5 mr-2" src="search.svg" alt="search icon" />
+      <div className="flex justify-center gap-4 mb-8 max-w-3xl mx-auto">
+        <div className="relative flex-1 max-w-xl">
           <input
             type="text"
             placeholder="Search for hospitals"
-            className="flex-grow outline-none"
+            className="
+              w-full rounded-full bg-white bg-opacity-80 
+              pl-10 pr-4 
+              py-2.5 
+              text-base text-[#343282] placeholder-[#acaed6]
+              shadow-md border border-gray-300 
+              outline-none focus:ring-2 focus:ring-[#5A63E3]
+              transition font-semibold
+            "
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
+          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[#8686a0]">
+            <img className="w-4 h-4" src="search.svg" alt="search" />
+          </span>
         </div>
 
-        <select
-          className="border rounded-full px-4 py-2 outline-none w-full sm:w-[150px]"
-          value={selectedCity}
-          onChange={(e) => setSelectedCity(e.target.value)}
-        >
-          <option value="">All Cities</option>
-          {cities.map((city) => (
-            <option key={city} value={city}>
-              {city}
-            </option>
-          ))}
-        </select>
+        <div className="relative flex-shrink-0">
+          <select
+            className="
+              w-full rounded-full bg-white bg-opacity-80 
+              py-2.5 px-6
+              text-base text-[#343282] 
+              shadow-md border border-gray-300 
+              outline-none appearance-none 
+              focus:ring-2 focus:ring-[#5A63E3] 
+              transition font-semibold
+              min-w-[150px] cursor-pointer
+            "
+            value={selectedCity}
+            onChange={(e) => setSelectedCity(e.target.value)}
+          >
+            <option value="">All Cities</option>
+            {cities.map((city) => (
+              <option key={city} value={city}>
+                {city}
+              </option>
+            ))}
+          </select>
+          <span className="pointer-events-none absolute top-1/2 right-3 -translate-y-1/2 text-gray-500 text-sm">
+            ▼
+          </span>
+        </div>
       </div>
 
       {/* Loading / Error */}
-      {/* Loading / Error */}
-{loading && (
-  <ul className="max-w-5xl mx-auto grid grid-cols-2 gap-4">
-    {[...Array(4)].map((_, index) => (
-      <li
-        key={index}
-        className="border rounded p-4 pl-14 shadow bg-[#DEEEFF] animate-pulse"
-      >
-        <div className="h-5 w-2/3 bg-gray-300 rounded mb-3"></div>
-        <div className="h-4 w-1/2 bg-gray-300 rounded mb-2"></div>
-        <div className="h-4 w-3/4 bg-gray-300 rounded mb-2"></div>
-        <div className="h-4 w-2/4 bg-gray-300 rounded mb-2"></div>
-        <div className="h-12 w-32 bg-gray-400 rounded mt-4"></div>
-      </li>
-    ))}
-  </ul>
-)}
+      {loading && (
+        <ul className="max-w-5xl mx-auto grid grid-cols-2 gap-4">
+          {[...Array(4)].map((_, index) => (
+            <li
+              key={index}
+              className="border rounded p-4 pl-14 shadow bg-[#DEEEFF] animate-pulse"
+            >
+              <div className="h-5 w-2/3 bg-gray-300 rounded mb-3"></div>
+              <div className="h-4 w-1/2 bg-gray-300 rounded mb-2"></div>
+              <div className="h-4 w-3/4 bg-gray-300 rounded mb-2"></div>
+              <div className="h-4 w-2/4 bg-gray-300 rounded mb-2"></div>
+              <div className="h-12 w-32 bg-gray-400 rounded mt-4"></div>
+            </li>
+          ))}
+        </ul>
+      )}
 
       {error && <p className="text-center text-red-500">Error: {error}</p>}
 
@@ -139,8 +153,7 @@ const Home = () => {
                   <strong>Location:</strong> {hospital.location}
                 </p>
                 <p>
-                  <strong>Specialties:</strong>{" "}
-                  {hospital.specialties?.join(", ")}
+                  <strong>Specialties:</strong> {hospital.specialties?.join(", ")}
                 </p>
                 <p>
                   <strong>Contact:</strong> {hospital.contact}
@@ -158,94 +171,39 @@ const Home = () => {
         </ul>
       )}
 
-      {/* Modal with Animation */}
-     {/* Modal with Animation */}
-<AnimatePresence>
-  {selectedHospital && (
-    <motion.div
-      className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.3 }}
-    >
-      <motion.div
-        className="bg-white p-4 rounded-lg shadow-lg w-[350px]"
-        initial={{ scale: 0.8, opacity: 0, y: -50 }}
-        animate={{ scale: 1, opacity: 1, y: 0 }}
-        exit={{ scale: 0.8, opacity: 0, y: -50 }}
-        transition={{ duration: 0.3, ease: "easeInOut" }}
-      >
-        <h2 className="text-lg font-bold mb-3">Book Appointment</h2>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
-          
-          {/* Hospital Info */}
-          <input {...register("hospitalName")} readOnly className="w-full border px-2 py-1 rounded bg-gray-100" />
-          <input {...register("hospitalLocation")} readOnly className="w-full border px-2 py-1 rounded bg-gray-100" />
-
-          {/* Name + Contact in same row */}
-          <div className="grid grid-cols-2 gap-2">
-            <input
-              {...register("patientName", {
-                required: "Name is required",
-                pattern: { value: /^[A-Za-z ]+$/, message: "Only letters allowed" },
-                minLength: { value: 2, message: "At least 2 characters" }
-              })}
-              placeholder="Name"
-              className="border px-2 py-1 rounded w-full"
-            />
-            <input
-              {...register("patientContact", {
-                required: "Contact required",
-                pattern: { value: /^[0-9]{10}$/, message: "10-digit number only" }
-              })}
-              placeholder="Contact"
-              className="border px-2 py-1 rounded w-full"
-            />
-          </div>
-          {errors.patientName && <p className="text-red-500 text-xs">{errors.patientName.message}</p>}
-          {errors.patientContact && <p className="text-red-500 text-xs">{errors.patientContact.message}</p>}
-
-          {/* Gender + Date in same row */}
-          <div className="grid grid-cols-2 gap-2">
-            <div className="flex items-center gap-3">
-              <label className="flex items-center gap-1">
-                <input type="radio" value="Male" {...register("gender", { required: "Gender required" })} /> Male
-              </label>
-              <label className="flex items-center gap-1">
-                <input type="radio" value="Female" {...register("gender", { required: "Gender required" })} /> Female
-              </label>
-            </div>
-            <input
-              type="date"
-              {...register("appointmentDate", { required: "Date required" })}
-              className="border px-2 py-1 rounded w-full"
-            />
-          </div>
-          {errors.gender && <p className="text-red-500 text-xs">{errors.gender.message}</p>}
-          {errors.appointmentDate && <p className="text-red-500 text-xs">{errors.appointmentDate.message}</p>}
-
-          {/* Photo */}
-          <input
-            type="file"
-            accept="image/*"
-            capture="user"
-            {...register("patientPhoto", { required: "Photo required" })}
-            className="border px-2 py-1 rounded w-full"
-          />
-          {errors.patientPhoto && <p className="text-red-500 text-xs">{errors.patientPhoto.message}</p>}
-
-          {/* Buttons */}
-          <div className="flex justify-end gap-2 pt-2">
-            <button type="button" onClick={closeModal} className="px-3 py-1 bg-gray-300 rounded text-sm">Cancel</button>
-            <button type="submit" className="px-3 py-1 bg-blue-600 text-white rounded text-sm">Confirm</button>
-          </div>
-        </form>
-      </motion.div>
-    </motion.div>
-  )}
-</AnimatePresence>
-
+      {/* Modal with Appointment Form */}
+      <AnimatePresence>
+        {selectedHospital && (
+          <motion.div
+            className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <motion.div
+              className="bg-white p-6 rounded-xl shadow-lg w-[380px] max-w-full relative"
+              initial={{ scale: 0.8, opacity: 0, y: -50 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.8, opacity: 0, y: -50 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+            >
+              <button
+                onClick={closeModal}
+                className="absolute top-4 right-4 text-gray-500 hover:text-gray-800 text-xl font-bold"
+                aria-label="Close modal"
+              >
+                ×
+              </button>
+              <BookAppointmentForm
+               hospitalId={selectedHospital._id}
+  userId={user?.sub}   // Pass logged-in user id here
+  onSuccess={closeModal}
+              />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

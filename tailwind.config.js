@@ -8,6 +8,7 @@ export default {
   extend: {
   backgroundImage: {
     'landing-bg': "url('bg_image.jpg')",
+    'main-bg' : "url('dash2.png')",
   },
      fontFamily: {
         arimo: ['Arimo', 'sans-serif'],

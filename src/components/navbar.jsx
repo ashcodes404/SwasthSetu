@@ -6,9 +6,9 @@ const Navbar = () => {
   const { logout, isAuthenticated } = useAuth0();
 
   return (
-    <div className="w-[95%] mx-auto">
-      <nav className="flex items-center justify-between">
-        <img className="w-20 " src="/SS_logo-removebg-preview.png" alt="Logo" />
+    <div className="w-[95%] mx-auto bg-transparent">
+      <nav className="flex items-center justify-between bg-transparent">
+        <img className="w-20" src="/SS_logo-removebg-preview.png" alt="Logo" />
         
         <ul className="flex gap-7 mr-7 font-bold items-center">
           <li className="text-[#1D104E]">
